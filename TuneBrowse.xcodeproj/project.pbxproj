@@ -17,6 +17,10 @@
 		FADE03A92865D83100C54C5A /* TuneBrowseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADE03A82865D83100C54C5A /* TuneBrowseTests.swift */; };
 		FADE03B32865D83100C54C5A /* TuneBrowseUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADE03B22865D83100C54C5A /* TuneBrowseUITests.swift */; };
 		FADE03B52865D83100C54C5A /* TuneBrowseUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADE03B42865D83100C54C5A /* TuneBrowseUITestsLaunchTests.swift */; };
+		FADE03C6286614B900C54C5A /* iTunesAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADE03C5286614B900C54C5A /* iTunesAPI.swift */; };
+		FADE03C82866304C00C54C5A /* PodcastsResults.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADE03C72866304C00C54C5A /* PodcastsResults.swift */; };
+		FADE03CE286633F000C54C5A /* String+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADE03CD286633F000C54C5A /* String+Utils.swift */; };
+		FADE03D0286635BC00C54C5A /* Podcasts.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADE03CF286635BC00C54C5A /* Podcasts.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +55,10 @@
 		FADE03AE2865D83100C54C5A /* TuneBrowseUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TuneBrowseUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FADE03B22865D83100C54C5A /* TuneBrowseUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TuneBrowseUITests.swift; sourceTree = "<group>"; };
 		FADE03B42865D83100C54C5A /* TuneBrowseUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TuneBrowseUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		FADE03C5286614B900C54C5A /* iTunesAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iTunesAPI.swift; sourceTree = "<group>"; };
+		FADE03C72866304C00C54C5A /* PodcastsResults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PodcastsResults.swift; sourceTree = "<group>"; };
+		FADE03CD286633F000C54C5A /* String+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Utils.swift"; sourceTree = "<group>"; };
+		FADE03CF286635BC00C54C5A /* Podcasts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Podcasts.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,12 +109,13 @@
 		FADE038D2865D83000C54C5A /* TuneBrowse */ = {
 			isa = PBXGroup;
 			children = (
+				FADE03CB286633C500C54C5A /* Library */,
+				FADE03C42866137000C54C5A /* Models */,
+				FADE03C32866135900C54C5A /* User Interface */,
+				FADE03C22865EB9200C54C5A /* Management */,
 				FADE038E2865D83000C54C5A /* AppDelegate.swift */,
 				FADE03902865D83000C54C5A /* SceneDelegate.swift */,
-				FADE03922865D83000C54C5A /* ViewController.swift */,
-				FADE03942865D83000C54C5A /* Main.storyboard */,
 				FADE039A2865D83100C54C5A /* Assets.xcassets */,
-				FADE039C2865D83100C54C5A /* LaunchScreen.storyboard */,
 				FADE039F2865D83100C54C5A /* Info.plist */,
 				FADE03972865D83000C54C5A /* TuneBrowse.xcdatamodeld */,
 			);
@@ -128,6 +137,57 @@
 				FADE03B42865D83100C54C5A /* TuneBrowseUITestsLaunchTests.swift */,
 			);
 			path = TuneBrowseUITests;
+			sourceTree = "<group>";
+		};
+		FADE03C12865EB7E00C54C5A /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				FADE03C5286614B900C54C5A /* iTunesAPI.swift */,
+			);
+			path = Networking;
+			sourceTree = "<group>";
+		};
+		FADE03C22865EB9200C54C5A /* Management */ = {
+			isa = PBXGroup;
+			children = (
+				FADE03C12865EB7E00C54C5A /* Networking */,
+			);
+			path = Management;
+			sourceTree = "<group>";
+		};
+		FADE03C32866135900C54C5A /* User Interface */ = {
+			isa = PBXGroup;
+			children = (
+				FADE03922865D83000C54C5A /* ViewController.swift */,
+				FADE03942865D83000C54C5A /* Main.storyboard */,
+				FADE039C2865D83100C54C5A /* LaunchScreen.storyboard */,
+			);
+			path = "User Interface";
+			sourceTree = "<group>";
+		};
+		FADE03C42866137000C54C5A /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				FADE03C72866304C00C54C5A /* PodcastsResults.swift */,
+				FADE03CF286635BC00C54C5A /* Podcasts.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		FADE03CB286633C500C54C5A /* Library */ = {
+			isa = PBXGroup;
+			children = (
+				FADE03CC286633CD00C54C5A /* Common */,
+			);
+			path = Library;
+			sourceTree = "<group>";
+		};
+		FADE03CC286633CD00C54C5A /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				FADE03CD286633F000C54C5A /* String+Utils.swift */,
+			);
+			path = Common;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -262,9 +322,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				FADE03932865D83000C54C5A /* ViewController.swift in Sources */,
+				FADE03C6286614B900C54C5A /* iTunesAPI.swift in Sources */,
 				FADE03992865D83000C54C5A /* TuneBrowse.xcdatamodeld in Sources */,
 				FADE038F2865D83000C54C5A /* AppDelegate.swift in Sources */,
 				FADE03912865D83000C54C5A /* SceneDelegate.swift in Sources */,
+				FADE03CE286633F000C54C5A /* String+Utils.swift in Sources */,
+				FADE03D0286635BC00C54C5A /* Podcasts.swift in Sources */,
+				FADE03C82866304C00C54C5A /* PodcastsResults.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
