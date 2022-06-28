@@ -1,24 +1,123 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13122.16" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.12"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Podcasts Search View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="PodcastsSearchViewController" customModule="TuneBrowse" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" xcode11CocoaTouchSystemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <subviews>
+                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="Dbs-SE-qqK">
+                                <rect key="frame" x="0.0" y="44" width="414" height="51"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="iYM-NV-JbF"/>
+                                </connections>
+                            </searchBar>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="SOm-wz-NtP">
+                                <rect key="frame" x="0.0" y="95" width="414" height="801"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="PodcastCellReuseIdentifier" rowHeight="98" id="1hH-Tk-ZQt" customClass="PodcastsTableViewCell" customModule="TuneBrowse" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="44.5" width="414" height="98"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="1hH-Tk-ZQt" id="JQf-Ee-7cB">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="98"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="BmT-2V-9Dz">
+                                                    <rect key="frame" x="10" y="5" width="88" height="88"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" secondItem="BmT-2V-9Dz" secondAttribute="height" multiplier="1:1" id="518-Fo-Gmi"/>
+                                                        <constraint firstAttribute="width" constant="88" id="jXN-qC-yt7"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZoL-Fa-1TG">
+                                                    <rect key="frame" x="118" y="21" width="44.5" height="21"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2s9-MW-YaI">
+                                                    <rect key="frame" x="118" y="56" width="41.5" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="2s9-MW-YaI" firstAttribute="leading" secondItem="BmT-2V-9Dz" secondAttribute="trailing" constant="20" id="HVR-Vk-3c5"/>
+                                                <constraint firstItem="BmT-2V-9Dz" firstAttribute="leading" secondItem="JQf-Ee-7cB" secondAttribute="leading" constant="10" id="ORp-MT-gBn"/>
+                                                <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="2s9-MW-YaI" secondAttribute="trailing" constant="10" id="b3W-xy-DgU"/>
+                                                <constraint firstItem="BmT-2V-9Dz" firstAttribute="top" secondItem="JQf-Ee-7cB" secondAttribute="top" constant="5" id="eHF-Vl-TKm"/>
+                                                <constraint firstItem="ZoL-Fa-1TG" firstAttribute="leading" secondItem="BmT-2V-9Dz" secondAttribute="trailing" constant="20" id="g6H-Er-2zL"/>
+                                                <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="ZoL-Fa-1TG" secondAttribute="trailing" constant="10" id="kHv-h6-Nwt"/>
+                                                <constraint firstItem="ZoL-Fa-1TG" firstAttribute="top" secondItem="JQf-Ee-7cB" secondAttribute="topMargin" constant="10" id="nQu-O6-DjU"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="2s9-MW-YaI" secondAttribute="bottom" constant="10" id="pvE-vX-Q6d"/>
+                                                <constraint firstAttribute="bottom" secondItem="BmT-2V-9Dz" secondAttribute="bottom" constant="5" id="tHJ-0t-wrs"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="artistNameLabel" destination="ZoL-Fa-1TG" id="XXX-rC-GwK"/>
+                                            <outlet property="iconImageView" destination="BmT-2V-9Dz" id="fId-nA-YVg"/>
+                                            <outlet property="trackNameLabel" destination="2s9-MW-YaI" id="Msa-0l-sU9"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <sections/>
+                            </tableView>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="Dbs-SE-qqK" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="8wy-cF-wv2"/>
+                            <constraint firstItem="Dbs-SE-qqK" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="9VL-Qa-7VS"/>
+                            <constraint firstItem="Dbs-SE-qqK" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="PNR-bK-dau"/>
+                            <constraint firstItem="SOm-wz-NtP" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="gRE-MW-gty"/>
+                            <constraint firstItem="SOm-wz-NtP" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="jjJ-sZ-wJ8"/>
+                            <constraint firstAttribute="bottom" secondItem="SOm-wz-NtP" secondAttribute="bottom" id="tSk-xm-VrJ"/>
+                            <constraint firstItem="SOm-wz-NtP" firstAttribute="top" secondItem="Dbs-SE-qqK" secondAttribute="bottom" id="zMl-m7-YYu"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="podcastsTableView" destination="SOm-wz-NtP" id="Web-6t-eDT"/>
+                        <outlet property="searchBar" destination="Dbs-SE-qqK" id="jMg-qg-wsf"/>
+                        <segue destination="sQO-RC-ewH" kind="showDetail" identifier="LoadPodcastDetailsSegueIdentifier" id="1pW-Ok-MiS"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="-149.27536231884059" y="114.50892857142857"/>
+        </scene>
+        <!--Podcast Details View Controller-->
+        <scene sceneID="gwe-ef-GRT">
+            <objects>
+                <viewController id="sQO-RC-ewH" customClass="PodcastDetailsViewController" customModule="TuneBrowse" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Akh-uz-Jf7">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="gZe-8m-LR4"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cPf-KY-1AK" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="793" y="115"/>
         </scene>
     </scenes>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
 </document>

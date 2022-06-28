@@ -8,19 +8,8 @@
 import Foundation
 import Combine
 
-enum PodcastsError: Error {
-    case statusCode
-    case decoding
-    case invalidURL
-    case other(Error)
-    
-    static func translate(_ error: Error) -> PodcastsError {
-        (error as? PodcastsError) ?? .other(error)
-    }
-}
-
 class ITunesAPI {
-    func searchPodcasts(phrase: String) -> AnyPublisher<PodcastsResults, PodcastsError> {
+    func searchPodcasts(phrase: String) -> AnyPublisher<PodcastsResults, RequestError> {
         let term = phrase.hostEncoded()
         let url = URL(string: "https://itunes.apple.com/search?term=\(term)&entity=podcast")!
 
@@ -37,13 +26,26 @@ class ITunesAPI {
               let httpURLResponse = response.response as? HTTPURLResponse,
               httpURLResponse.statusCode == 200
               else {
-                throw PodcastsError.statusCode
+                throw RequestError.statusCode
             }
               
             return response.data
           }
           .decode(type: PodcastsResults.self, decoder: JSONDecoder())
-          .mapError { PodcastsError.translate($0) }
+          .mapError { RequestError.translate($0) }
           .eraseToAnyPublisher()
+    }
+}
+
+extension Resource {
+
+    static func podcasts(phrase: String) -> Resource<PodcastsResults> {
+        let term = phrase.hostEncoded()
+        let url = URL(string: "https://itunes.apple.com/search")!
+        let parameters: [String : CustomStringConvertible] = [
+            "term": term,
+            "entity": "podcast"
+            ]
+        return Resource<PodcastsResults>(url: url, parameters: parameters)
     }
 }

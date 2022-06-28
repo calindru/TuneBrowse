@@ -10,5 +10,5 @@ import Foundation
 struct PodcastsResults: Decodable {
     var resultCount: Int
     
-    var results: Podcasts
+    var results: [Podcast]
 }
