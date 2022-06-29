@@ -110,9 +110,9 @@ class PodcastsSearchViewController: UIViewController, UISearchBarDelegate, UITab
     private func render(_ state: PodcastsSearchState) {
         switch state {
         case .idle:
-            break
+            update(with: [], animate: true)
         case .loading:
-            break
+            update(with: [], animate: true)
         case .success(let podcasts):
             update(with: podcasts, animate: true)
         case .noResults:

@@ -90,7 +90,7 @@ class PodcastsSearchViewModel: PodcastsSearchViewModelable {
         let emptySearchString: PodcastsViewModelOuput = searchInput.filter({ $0.isEmpty }).map({ _ in .idle }).eraseToAnyPublisher()
         let idle: PodcastsViewModelOuput = Publishers.Merge(initialState, emptySearchString).eraseToAnyPublisher()
 
-        return Publishers.Merge(idle, podcasts).removeDuplicates().eraseToAnyPublisher()
+        return Publishers.Merge(idle, podcasts).eraseToAnyPublisher()
     }
     
     func detailsViewModel(forPodcast podcast: Podcast) -> PodcastDetailsViewModel {

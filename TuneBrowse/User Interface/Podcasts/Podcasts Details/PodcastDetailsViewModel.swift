@@ -45,7 +45,7 @@ class PodcastDetailsViewModel: PodcastDetailsViewModelable {
     
     private let dateFormatter: DateFormatter = {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd M yyyy"
+        dateFormatter.dateFormat = "dd MMMM yyyy"
         
         return dateFormatter
     }()
