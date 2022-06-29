@@ -23,8 +23,7 @@ enum NetworkError: Error {
 }
 
 final class NetworkLoader: NetworkLoadable {
-    private let session: URLSession
-
+    
     init(session: URLSession = URLSession(configuration: URLSessionConfiguration.ephemeral)) {
         self.session = session
     }
@@ -36,7 +35,6 @@ final class NetworkLoader: NetworkLoadable {
         }
         return session.dataTaskPublisher(for: request)
             .mapError { _ in NetworkError.invalidRequest }
-//            .print()
             .flatMap { data, response -> AnyPublisher<Data, Error> in
                 guard let response = response as? HTTPURLResponse else {
                     return .fail(NetworkError.invalidResponse)
@@ -47,8 +45,22 @@ final class NetworkLoader: NetworkLoadable {
                 }
                 return .just(data)
             }
-            .decode(type: T.self, decoder: JSONDecoder())
-        .eraseToAnyPublisher()
+            .decode(type: T.self, decoder: decoder)
+            .eraseToAnyPublisher()
     }
 
+    // MARK: - Private
+    
+    private let session: URLSession
+    
+    private lazy var decoder: JSONDecoder = {
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
+        
+        let decoder = JSONDecoder()
+        decoder.dateDecodingStrategy = .formatted(formatter)
+        
+        return decoder
+    }()
 }

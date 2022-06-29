@@ -9,10 +9,10 @@ import UIKit
 import Combine
 
 protocol PodcastsUseCaseable {
-    // Runs movies search with a query string
+    // Runs podcasts search with a query string
     func searchPodcasts(with phrase: String) -> AnyPublisher<Result<PodcastsResults, Error>, Never>
 
-    // Loads image for the given movie
+    // Loads image for the given podcast
     func loadImage(for podcast: Podcast) -> AnyPublisher<UIImage?, Never>
 }
 

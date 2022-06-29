@@ -10,6 +10,7 @@ import UIKit.UIImage
 import Combine
 
 protocol PodcastCellViewModelable {
+    var podcast: Podcast { get }
     var trackId: Int { get }
     var artistName: String { get }
     var trackName: String { get }
@@ -23,9 +24,9 @@ class PodcastCellViewModel: PodcastCellViewModelable {
         self.poster = poster
     }
     
-    private var podcast: Podcast
-    
     // MARK: - PodcastCellViewModelable
+    
+    var podcast: Podcast
     
     var trackId: Int {
         podcast.trackId

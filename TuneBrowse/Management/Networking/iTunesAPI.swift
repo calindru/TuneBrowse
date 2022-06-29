@@ -6,36 +6,6 @@
 //
 
 import Foundation
-import Combine
-
-class ITunesAPI {
-    func searchPodcasts(phrase: String) -> AnyPublisher<PodcastsResults, RequestError> {
-        let term = phrase.hostEncoded()
-        let url = URL(string: "https://itunes.apple.com/search?term=\(term)&entity=podcast")!
-
-        let config = URLSessionConfiguration.default
-        config.requestCachePolicy = .reloadIgnoringLocalCacheData
-        config.urlCache = nil
-        let session = URLSession(configuration: config)
-
-        let urlRequest = URLRequest(url: url)
-
-        return session.dataTaskPublisher(for: urlRequest)
-          .tryMap { response -> Data in
-            guard
-              let httpURLResponse = response.response as? HTTPURLResponse,
-              httpURLResponse.statusCode == 200
-              else {
-                throw RequestError.statusCode
-            }
-              
-            return response.data
-          }
-          .decode(type: PodcastsResults.self, decoder: JSONDecoder())
-          .mapError { RequestError.translate($0) }
-          .eraseToAnyPublisher()
-    }
-}
 
 extension Resource {
 

@@ -32,7 +32,14 @@ class PodcastsSearchViewController: UIViewController, UISearchBarDelegate, UITab
     // MARK: - UITableViewDelegate
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        selection.send(indexPath.row)
+        let snapshot = dataSource.snapshot()
+        selection.send(snapshot.itemIdentifiers[indexPath.row].podcast)
+        
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        searchBar.resignFirstResponder()
     }
     
     // MARK: - UISearchBarDelegate
@@ -49,6 +56,7 @@ class PodcastsSearchViewController: UIViewController, UISearchBarDelegate, UITab
     
     private enum Constants {
         static let cellReuseIdentifier = "PodcastCellReuseIdentifier"
+        static let podcastDetailsControllerIdentifier = "PodcastDetailsControllerIdentifier"
     }
     
     private func setupUI() {
@@ -62,7 +70,7 @@ class PodcastsSearchViewController: UIViewController, UISearchBarDelegate, UITab
     
     private let appear = PassthroughSubject<Void, Never>()
     private let search = PassthroughSubject<String, Never>()
-    private let selection = PassthroughSubject<Int, Never>()
+    private let selection = PassthroughSubject<Podcast, Never>()
     
     private lazy var dataSource = makeDataSource()
     
@@ -124,3 +132,11 @@ class PodcastsSearchViewController: UIViewController, UISearchBarDelegate, UITab
     }
 }
 
+extension PodcastsSearchViewController: PodcastsSearchNavigable {
+    func showDetails(forPodcast podcast: Podcast) {
+        let detailsController = storyboard?.instantiateViewController(withIdentifier: Constants.podcastDetailsControllerIdentifier) as! PodcastDetailsViewController
+        detailsController.viewModel = viewModel.detailsViewModel(forPodcast: podcast)
+        
+        navigationController?.pushViewController(detailsController, animated: true)
+    }
+}

@@ -55,9 +55,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     // MARK: - Private
     
     private func injectPodcastsViewModel() {
-        let podcastsController = window?.rootViewController as? PodcastsSearchViewController
+        guard let navigationController = window?.rootViewController as? UINavigationController,
+              let podcastsController = navigationController.viewControllers.first as? PodcastsSearchViewController else { return }
+        
         let useCase = PodcastsUseCase(networkLoader: NetworkLoader())
-        podcastsController?.viewModel = PodcastsSearchViewModel(useCase: useCase)
+        podcastsController.viewModel = PodcastsSearchViewModel(useCase: useCase, navigator: podcastsController)
     }
 }
 

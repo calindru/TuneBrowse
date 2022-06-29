@@ -17,7 +17,7 @@ struct PodcastsViewModelInput {
     let search: AnyPublisher<String, Never>
     
     // called when a user selected an item from the list
-    let selection: AnyPublisher<Int, Never>
+    let selection: AnyPublisher<Podcast, Never>
 }
 
 typealias PodcastsViewModelOuput = AnyPublisher<PodcastsSearchState, Never>
@@ -45,12 +45,15 @@ extension PodcastsSearchState: Equatable {
 
 protocol PodcastsSearchViewModelable {
     func transform(input: PodcastsViewModelInput) -> PodcastsViewModelOuput
+    
+    func detailsViewModel(forPodcast podcast: Podcast) -> PodcastDetailsViewModel
 }
 
 class PodcastsSearchViewModel: PodcastsSearchViewModelable {
 
-    init(useCase: PodcastsUseCaseable) {
+    init(useCase: PodcastsUseCaseable, navigator: PodcastsSearchNavigable) {
         self.useCase = useCase
+        self.navigator = navigator
     }
     
     // MARK: - PodcastsSearchViewModelable
@@ -60,8 +63,8 @@ class PodcastsSearchViewModel: PodcastsSearchViewModelable {
         subscriptions.removeAll()
         
         input.selection
-            .sink(receiveValue: { [unowned self] podcastIndex in
-//                self.navigator?.showDetails(forMovie: movieId)
+            .sink(receiveValue: { [unowned self] podcast in
+                self.navigator?.showDetails(forPodcast: podcast)
             })
             .store(in: &subscriptions)
 
@@ -90,19 +93,26 @@ class PodcastsSearchViewModel: PodcastsSearchViewModelable {
         return Publishers.Merge(idle, podcasts).removeDuplicates().eraseToAnyPublisher()
     }
     
+    func detailsViewModel(forPodcast podcast: Podcast) -> PodcastDetailsViewModel {
+        return PodcastDetailsViewModel(podcast: podcast, poster: poster(forPodcast: podcast))
+    }
     
     // MARK: - Private
     
     private let useCase: PodcastsUseCaseable
+    private weak var navigator: PodcastsSearchNavigable?
     private var subscriptions: Set<AnyCancellable> = []
     
     private func viewModels(from podcasts: [Podcast]) -> [PodcastCellViewModel] {
-        let poster: (Podcast) -> AnyPublisher<UIImage?, Never> = { [unowned self] podcast in
-            self.useCase.loadImage(for: podcast)
-                .subscribe(on: Scheduler.background)
-                .receive(on: Scheduler.main)
-                .eraseToAnyPublisher()
-        }
+        let poster: (Podcast) -> AnyPublisher<UIImage?, Never> = poster(forPodcast:)
+        
         return podcasts.map { PodcastCellViewModel(podcast: $0, poster: poster($0)) }
+    }
+    
+    private func poster(forPodcast podcast: Podcast) -> AnyPublisher<UIImage?, Never> {
+        useCase.loadImage(for: podcast)
+            .subscribe(on: Scheduler.background)
+            .receive(on: Scheduler.main)
+            .eraseToAnyPublisher()
     }
 }

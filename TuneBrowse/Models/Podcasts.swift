@@ -6,14 +6,13 @@
 //
 
 import Foundation
-import Combine
 
 struct Podcast: Decodable {
     var trackId: Int
     var artistName: String
     var trackName: String
     var iconURL: String
-    var releaseDate: String
+    var releaseDate: Date
     
     private enum CodingKeys: String, CodingKey {
         case trackId
