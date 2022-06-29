@@ -14,6 +14,17 @@ protocol NetworkLoadable: AnyObject {
     func load<T>(_ resource: Resource<T>) -> AnyPublisher<T, Error>
 }
 
+var iTunesDecoder: JSONDecoder = {
+    let formatter = DateFormatter()
+    formatter.locale = Locale(identifier: "en_US_POSIX")
+    formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
+    
+    let decoder = JSONDecoder()
+    decoder.dateDecodingStrategy = .formatted(formatter)
+    
+    return decoder
+}()
+
 /// Defines the Network service errors.
 enum NetworkError: Error {
     case invalidRequest
@@ -45,22 +56,11 @@ final class NetworkLoader: NetworkLoadable {
                 }
                 return .just(data)
             }
-            .decode(type: T.self, decoder: decoder)
+            .decode(type: T.self, decoder: iTunesDecoder)
             .eraseToAnyPublisher()
     }
 
     // MARK: - Private
     
     private let session: URLSession
-    
-    private lazy var decoder: JSONDecoder = {
-        let formatter = DateFormatter()
-        formatter.locale = Locale(identifier: "en_US_POSIX")
-        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
-        
-        let decoder = JSONDecoder()
-        decoder.dateDecodingStrategy = .formatted(formatter)
-        
-        return decoder
-    }()
 }
