@@ -40,7 +40,7 @@ class PodcastsUseCaseTests: XCTestCase {
         }
     }
 
-    func test_searchMoviesFails_onNetworkError() {
+    func test_searchPodcastsFails_onNetworkError() {
         // Given
         var result: Result<PodcastsResults, Error>!
         let expectation = expectation(description: "podcasts")
